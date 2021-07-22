@@ -12,9 +12,13 @@ orderNumberField.innerText = orderNumber;
 answerField.innerText = `Вы загадали число ${answerNumber }?`;
 
 document.getElementById('btnRetry').addEventListener('click', function () {
-    minValue = 0;
-    maxValue = 100;
-    orderNumber = 0;
+minValue = parseInt(prompt('Минимальное знание числа для игры','0'));
+maxValue = parseInt(prompt('Максимальное знание числа для игры','100'));
+alert(`Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю`);
+gameRun = true;
+answerNumber =  Math.floor((minValue + maxValue) / 2);
+answerField.innerText = Math.floor((minValue + maxValue) / 2);
+orderNumber = 0;
 })
 
 document.getElementById('btnOver').addEventListener('click', function () {
@@ -28,7 +32,7 @@ document.getElementById('btnOver').addEventListener('click', function () {
             answerField.innerText = answerPhrase;
             gameRun = false;
         } else {
-            minValue = answerNumber  + 1;
+            minValue = answerNumber + 1;
             answerNumber  = Math.floor((minValue + maxValue) / 2);
             orderNumber++;
             orderNumberField.innerText = orderNumber;
@@ -48,9 +52,9 @@ document.getElementById('btnLess').addEventListener('click', function () {
             answerField.innerText = answerPhrase;
             gameRun = false;
         } else {
-            minValue = answerNumber  - 1;
-            answerNumber  = Math.floor((minValue - maxValue) / 2);
-            orderNumber--;
+            maxValue = answerNumber + 1;
+            answerNumber  = Math.floor((minValue + maxValue) / 2);
+            orderNumber++;
             orderNumberField.innerText = orderNumber;
             answerField.innerText = `Вы загадали число ${answerNumber }?`;
         }
@@ -58,9 +62,19 @@ document.getElementById('btnLess').addEventListener('click', function () {
 })
 
 document.getElementById('btnEqual').addEventListener('click', function () {
+    const phraseRandom = Math.round( Math.random()*5);
+    equalPhrases = [
+        'Я так и знал!\n\u{1F603}',
+        'Какой я молодец\n\u{1F60C}',
+        'Могу, умею, практикую!\n\u{1F60F}',
+        'Четенько отгдал!\n\u{1F631}',
+        'Вот ты и попался!\n\u{1F604}'
+    ];
+    const answerPhrase = (phraseRandom === 1) ?
+    `Вы загадали неправильное число!\n\u{1F914}` :
+    `Я сдаюсь..\n\u{1F92F}`; 
     if (gameRun){
         answerField.innerText = `Я всегда угадываю\n\u{1F60E}`
-        gameRun = false;
+        orderNumber = 0;
     }
 })
-
