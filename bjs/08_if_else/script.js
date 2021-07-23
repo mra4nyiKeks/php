@@ -8,6 +8,9 @@ let gameRun = true;
 const orderNumberField = document.getElementById('orderNumberField');
 const answerField = document.getElementById('answerField');
 
+
+
+
 orderNumberField.innerText = orderNumber;
 answerField.innerText = `Вы загадали число ${answerNumber }?`;
 
@@ -19,6 +22,7 @@ gameRun = true;
 answerNumber =  Math.floor((minValue + maxValue) / 2);
 answerField.innerText = Math.floor((minValue + maxValue) / 2);
 orderNumber = 0;
+answerField.innerText = `Вы загадали число ${answerNumber }?`;
 })
 
 document.getElementById('btnOver').addEventListener('click', function () {
@@ -36,7 +40,14 @@ document.getElementById('btnOver').addEventListener('click', function () {
             answerNumber  = Math.floor((minValue + maxValue) / 2);
             orderNumber++;
             orderNumberField.innerText = orderNumber;
-            answerField.innerText = `Вы загадали число ${answerNumber }?`;
+            let checkPhrases = [
+                `Думаю, что это число ${answerNumber }?`,
+                `Наверное это ${answerNumber }?`,
+                `Походу это ${answerNumber }?`,
+                `Без вариантов, это ${answerNumber }!`,
+                `Уверен, что это ${answerNumber }!`
+            ];
+            answerField.innerHTML = checkPhrases[Math.floor( Math.random() * checkPhrases.length)];
         }
     }
 })
@@ -56,25 +67,28 @@ document.getElementById('btnLess').addEventListener('click', function () {
             answerNumber  = Math.floor((minValue + maxValue) / 2);
             orderNumber++;
             orderNumberField.innerText = orderNumber;
-            answerField.innerText = `Вы загадали число ${answerNumber }?`;
+            let checkPhrases = [
+                `Думаю, что это число ${answerNumber }?`,
+                `Наверное это ${answerNumber }?`,
+                `Походу это ${answerNumber }?`,
+                `Без вариантов, это ${answerNumber }!`,
+                `Уверен, что это ${answerNumber }!`
+            ];
+            answerField.innerHTML = checkPhrases[Math.floor( Math.random() * checkPhrases.length)];
         }
     }
 })
 
 document.getElementById('btnEqual').addEventListener('click', function () {
-    const phraseRandom = Math.round( Math.random()*5);
-    equalPhrases = [
+    if (gameRun) {
+    let equalPhrases = [
         'Я так и знал!\n\u{1F603}',
         'Какой я молодец\n\u{1F60C}',
         'Могу, умею, практикую!\n\u{1F60F}',
         'Четенько отгдал!\n\u{1F631}',
         'Вот ты и попался!\n\u{1F604}'
     ];
-    const answerPhrase = (phraseRandom === 1) ?
-    `Вы загадали неправильное число!\n\u{1F914}` :
-    `Я сдаюсь..\n\u{1F92F}`; 
-    if (gameRun){
-        answerField.innerText = `Я всегда угадываю\n\u{1F60E}`
-        orderNumber = 0;
-    }
+    answerField.innerHTML = equalPhrases[Math.floor( Math.random() * equalPhrases.length)];
+    orderNumber = 0;
+}
 })
